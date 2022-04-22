@@ -18,10 +18,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func keyPressed(_ sender: UIButton) {
+        print("Start at \(DispatchTime.now().uptimeNanoseconds)")
+        
+        sender.layer.opacity = 0.5
         
         guard let title = sender.titleLabel?.text else { return }
         
         playSound(key: title)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            sender.layer.opacity = 1
+            print("End at \(DispatchTime.now().uptimeNanoseconds)")
+        }
     }
     
     func playSound(key: String) {
